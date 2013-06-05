@@ -1,0 +1,26 @@
+<%= semantic_form_for @project, :html => {multipart: true} do |f| %>
+    <div class="modal-body">
+      <%= f.inputs do %>
+          <p>
+            <%= f.label :title, "Name" %>
+            <%= f.text_field :title %>
+          </p>
+
+          <p>
+            <%= f.label :code, "Project ID" %>
+            <%= f.text_field :code %>
+          </p>
+
+          <p>
+            <%= f.label :description, "Description" %>
+            <%= f.text_field :description %>
+          </p>
+          <%= f.hidden_field :created_by, value: current_user.id rescue nil %>
+          <%= f.hidden_field :company_id, value: current_company.id rescue nil %>
+      <% end %>
+    </div>
+    <div class="modal-footer">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<% end %>
+</div>

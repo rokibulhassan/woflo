@@ -1,0 +1,39 @@
+<%= semantic_form_for @team, :html => {multipart: true} do |f| %>
+    <table class="table table-striped">
+      <tbody>
+      <%= f.inputs do %>
+          <tr>
+            <td>
+              <h4>Team Details</h4>
+            </td>
+            <td>
+              <div class="display-single">
+                <%= f.label :title, "Name" %>
+                <%= f.text_field :title %>
+              </div>
+
+              <div class="display-single">
+                <%= f.label :description, "Description" %>
+                <%= f.text_field :description %>
+              </div>
+
+              <h5>Team Leaders</h5>
+              <%= f.fields_for :team_members do |pf| %>
+                  <div class="display-single">
+                    <%= pf.label :tem_member, "Team Member" %>
+                    <%#= pf.select(:user_id, User.all.collect { |u| [u.full_name, u.id] }, {}, {:multiple => true, :size => 5}) %>
+                    <%= pf.select(:user_id, User.all.collect { |u| [u.full_name, u.id] }, :prompt => 'Select') %>
+                  </div>
+                  <%= pf.hidden_field :created_by, value: current_user.id rescue nil %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <div class="control-group text-center">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+    </div>
+<% end %>

@@ -1,0 +1,114 @@
+<%= semantic_form_for @activity, :html => {multipart: true} do |f| %>
+    <%= f.inputs do %>
+        <h4>Details</h4>
+        <div class="display-inline">
+          <%= f.label :priority, "Priority" %>
+          <%= f.select(:priority, Constants::ACT_PRIORITY.collect { |k, v| [v, k] }, :prompt => 'Select') %>
+        </div>
+
+        <div class="display-inline">
+          <%= f.label :status, "Status" %>
+          <%= f.select(:status, Constants::ACT_STATUS.collect { |k, v| [v, k] }, :prompt => 'Select') %>
+        </div>
+
+        <div class="display-inline">
+          <%= f.label :inspected_by, "Inspected By" %>
+          <%= @activity.inspector %>
+        </div>
+
+        <div class="display-inline">
+          <%= f.label :inspection_date %>
+          <%= @activity.inspection_date %>
+        </div>
+
+        <div class="display-inline">
+          <%= f.label :project_title, "Project" %>
+          <%= f.text_field :project_title %>
+        </div>
+
+        <div class="display-inline">
+          <%= f.label :project_code, "Project Id" %>
+          <%= f.text_field :project_code %>
+        </div>
+
+        <div class="display-inline">
+          <%= f.label :building_title, "Building" %>
+          <%= f.text_field :building_title %>
+        </div>
+
+        <div class="display-inline">
+          <%= f.label :floor_title, "Floor" %>
+          <%= f.text_field :floor_title %>
+        </div>
+
+        <div class="display-inline">
+          <%= f.label :room_title, "Room" %>
+          <%= f.text_field :room_title %>
+        </div>
+
+
+        <div class="display-inline">
+          <%= f.label :project_manager, "Project Manager" %>
+          <%= @activity.manager %>
+        </div>
+
+
+        <%= f.hidden_field :created_by, value: current_user.id rescue nil %>
+        <%= f.hidden_field :company_id, value: current_company.id rescue nil %>
+        <h4>People</h4>
+        <div class="display-inline">
+          <%= f.label :created_by, "Created By" %>
+          <%= @activity.creator %>
+        </div>
+        <div class="display-inline">
+          <%= f.label :inspected_by, "Inspected By" %>
+          <%= @activity.inspector %>
+        </div>
+        <h4>Dates</h4>
+        <div class="display-inline">
+          <%= f.label :created_at, "Created At" %>
+          <%= @activity.created_at %>
+        </div>
+        <div class="display-inline">
+          <%= f.label :updated_at, "Updated At" %>
+          <%= @activity.updated_at %>
+        </div>
+
+        <%= render :partial => "activities/questions", :locals => {:f => f, :activity => @activity} %>
+
+        <div class="tabbable pull-lef">
+          <h4>Extra</h4>
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab4" data-toggle="tab">Comments</a></li>
+            <li><a href="#tab5" data-toggle="tab">Activity</a></li>
+            <li><a href="#tab6" data-toggle="tab">Attachment</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab4">
+              <p> There are no Comments</p>
+            </div>
+            <div class="tab-pane" id="tab5">
+              <p> There are no Activity</p>
+            </div>
+            <div class="tab-pane" id="tab6">
+              <p> There are no Attachment</p>
+            </div>
+
+          </div>
+        </div>
+
+    <% end %>
+
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<% end %>
+
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker2').datetimepicker({
+            language: 'pt-BR'
+        });
+    });
+</script>
+
+

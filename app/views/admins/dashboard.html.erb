@@ -1,0 +1,149 @@
+<div class="tabbable tabs-left">
+  <ul class="nav nav-tabs" id="myTab">
+    <li class="active"><a href="#tab1" data-toggle="tab" class="users-index">Users</a></li>
+    <li><a href="#tab2" data-toggle="tab" class="teams-index">Teams</a></li>
+    <!--<li><a href="#tab3" data-toggle="tab" class="projects-index">Projects</a></li>-->
+    <li><a href="#tab4" data-toggle="tab" class="parent-activity-index">Activities</a></li>
+    <li><a href="#tab5" data-toggle="tab" class="company-account">Account Overview</a></li>
+    <li><a href="#tab6" data-toggle="tab" class="company-design">Design</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+      <a href="#newuser_modal" role="button" class="btn btn-small create-user-btn" data-toggle="modal">Create User</a>
+    </div>
+    <div class="tab-pane" id="tab2">
+      <a href="<%= new_team_path %>" data-toggle="modal" data-target="#myModal" class="btn btn-small create-team-btn">Create
+        Team</a>
+    </div>
+    <div class="tab-pane" id="tab3">
+      <a href="<%= new_project_path %>" data-toggle="modal" data-target="#myModal" class="btn btn-small create-team-btn">Create
+        Project</a>
+    </div>
+    <div class="tab-pane" id="tab4">
+      <a href="#" class="btn btn-small create-team-btn">Request Activity</a>
+      <!--<a href="<%#= new_parent_activity_path %>" data-toggle="modal" data-target="#myModal" class="btn btn-small create-team-btn">Request Activity</a>-->
+    </div>
+    <div class="tab-pane" id="tab5">
+      <p>Howdy, I'm in Section 5.</p>
+    </div>
+    <div class="tab-pane" id="tab6">
+      <p>Howdy, I'm in Section 6.</p>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    //Fetch users
+    function fetch_users() {
+        $.ajax({
+            Type: "GET",
+            url: "<%= users_path %>"
+        });
+    }
+
+    $(".users-index").click(function () {
+        fetch_users();
+    });
+
+    $(document).ready(function () {
+        if ($(".users-index").parent().hasClass('active')) {
+            fetch_users();
+        }
+    });
+
+    //Fetch teams
+    function fetch_teams() {
+        $.ajax({
+            Type: "GET",
+            url: "<%= teams_path %>"
+        });
+    }
+
+    $(".teams-index").click(function () {
+        fetch_teams();
+    });
+
+    $(document).ready(function () {
+        if ($(".teams-index").parent().hasClass('active')) {
+            fetch_teams();
+        }
+    });
+
+    //Fetch Project
+
+    function fetch_projects() {
+        $.ajax({
+            Type: "GET",
+            url: "<%= projects_path %>"
+        });
+    }
+
+    $(".projects-index").click(function () {
+        fetch_projects();
+    });
+
+    $(document).ready(function () {
+        if ($(".projects-index").parent().hasClass('active')) {
+            fetch_projects();
+        }
+    });
+
+    //Fetch Parent Activity
+
+    function fetch_parent_activity() {
+        $.ajax({
+            Type: "GET",
+            data: { request_from: 'admin-dashboard'},
+            url: "<%= parent_activities_path %>"
+        });
+    }
+
+    $(".parent-activity-index").click(function () {
+        fetch_parent_activity();
+    });
+
+    $(document).ready(function () {
+        if ($(".parent-activity-index").parent().hasClass('active')) {
+            fetch_parent_activity();
+        }
+    });
+
+    //Fetch Company Account
+
+    function fetch_company_account() {
+        $.ajax({
+            Type: "GET",
+            url: "<%= company_path(current_company) %>"
+        });
+    }
+
+    $(".company-account").click(function () {
+        fetch_company_account();
+    });
+
+    $(document).ready(function () {
+        if ($(".company-account").parent().hasClass('active')) {
+            fetch_company_account();
+        }
+    });
+
+    //Fetch Company Design
+
+    function fetch_company_designs() {
+        $.ajax({
+            Type: "GET",
+            url: "<%= design_company_path(current_company) %>"
+        });
+    }
+
+    $(".company-design").click(function () {
+        fetch_company_designs();
+    });
+
+    $(document).ready(function () {
+        if ($(".company-design").parent().hasClass('active')) {
+            fetch_company_designs();
+        }
+    });
+
+</script>

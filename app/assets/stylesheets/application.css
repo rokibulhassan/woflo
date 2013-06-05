@@ -1,0 +1,76 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+.over-view-content {
+    display: inline-block;
+}
+
+.recent_activity {
+    width: 58%;
+}
+
+.activity_stream {
+    width: 40%;
+    padding: 0 0 0 15px;
+    vertical-align: top;
+}
+
+.table.table-borderless td,
+.table.table-borderless th {
+    border-top: 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.inputs p label {
+    width: 126px;
+}
+
+.inputs p label, .inputs p input {
+    display: inline-block;
+}
+
+.create-user-btn, .create-team-btn {
+    float: right;
+}
+
+.display-inline {
+    width: 35%;
+    display: inline-block;
+}
+
+.parent-activity {
+    width: 160px;
+}
+
+.child-activity {
+    width: 240px;
+    margin-left: 160px;
+    vertical-align: top;
+}
+
+.activities-edit {
+    margin-left: 430px;
+    vertical-align: top;
+}
+
+.general-info {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.admin-access li.element {
+    width: 220px;
+    padding: 10px;
+    font-weight: bold;
+}

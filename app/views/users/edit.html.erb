@@ -1,0 +1,18 @@
+<div class="tabbable tabs-left">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab" class="users-show">Profile</a></li>
+    <li><a href="#tab2" data-toggle="tab">My Teams</a></li>
+    <li><a href="#tab3" data-toggle="tab">Password</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+      <%= render :partial => 'user_profile' %>
+    </div>
+    <div class="tab-pane" id="tab2">
+      <p>Howdy, I'm in Section 2.</p>
+    </div>
+    <div class="tab-pane" id="tab3">
+      <%= render :partial => 'change_password' %>
+    </div>
+  </div>
+</div>

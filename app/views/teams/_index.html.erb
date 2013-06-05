@@ -1,0 +1,34 @@
+<a href="<%= new_team_path %>" data-toggle="modal" data-target="#myModal" class="btn btn-small create-team-btn">Create
+  Team</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Team Name</th>
+    <th>Team Lead</th>
+    <th>Teams Description</th>
+    <th>Team Details</th>
+    <th>Date/Time Added/Added By</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <% @teams.each do |team| %>
+      <tr>
+        <td><%= team.title %></td>
+        <td>
+          <% team.users.each do |user| %>
+              <%= user.try(:full_name) %> <br>
+          <% end %>
+        </td>
+        <td><%= team.description %></td>
+        <td>Number of Members: <%= team.try(:team_members).count %></td>
+        <td><%= team.updated_at.strftime("%m/%d/%Y %I:%M %p") %>/<%= team.try(:creator) %></td>
+        <td>
+          <a href="<%= edit_team_path(team) %>" data-toggle="modal" data-target="#myModal" class="btn btn-small">Edit</a>
+          <%#= link_to "Edit", edit_team_path(team), :class => "btn btn-small" %>
+          <%= link_to "Delete", team_path(team), :method => :delete, :confirm => 'Are you sure?', :class => "btn btn-small" %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

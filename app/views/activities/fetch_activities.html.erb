@@ -1,0 +1,13 @@
+<div class="tabbable tabs-left">
+  <ul class="nav nav-tabs">
+    <% @activities.each do |activity| %>
+        <li>
+          <a href="<%= edit_activity_path(activity) %>" data-toggle="tab" data-target="#tab2">
+            <%= activity.project_code %><br>
+            Project:<%= activity.project_title %><br>
+            Requested By: <%= activity.creator %><br>
+          </a>
+        <li>
+    <% end %>
+  </ul>
+</div>

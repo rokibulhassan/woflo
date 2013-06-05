@@ -1,0 +1,109 @@
+<h4>
+  <%= link_to "User", dashboard_admins_path %> >>
+  <a href="<%= user_path(@user) %>" data-toggle="modal" data-target="#myModal"><%= @user.full_name %></a>
+</h4>
+<%= semantic_form_for @user, :html => {multipart: true} do |f| %>
+    <table class="table table-striped">
+      <tbody>
+      <%= f.inputs do %>
+          <tr>
+            <td>
+              <h4>Basic Details</h4>
+            </td>
+            <td>
+              <div class="display-single">
+                <%= f.label :user_name, "Username" %>
+                <%= f.text_field :user_name %>
+              </div>
+
+              <%= f.fields_for :profile do |pf| %>
+                  <div class="display-inline">
+                    <%= pf.label :first_name, "First Name" %>
+                    <%= pf.text_field :first_name %>
+                  </div>
+
+                  <div class="display-inline">
+                    <%= pf.label :last_name, "Last Name" %>
+                    <%= pf.text_field :last_name %>
+                  </div>
+              <% end %>
+
+              <div class="display-single">
+                <%= f.label :email, "Email Address" %>
+                <%= f.text_field :email %>
+              </div>
+
+              <%= f.fields_for :profile do |pf| %>
+                  <%= pf.fields_for :company do |cf| %>
+                      <div class="display-inline">
+                        <%= cf.label :title, "Company" %>
+                        <%= cf.text_field :title %>
+                      </div>
+                  <% end %>
+
+                  <div class="display-inline">
+                    <%= pf.label :phone, "Phone" %>
+                    <%= pf.text_field :phone %>
+                  </div>
+
+                  <div class="display-inline">
+                    <%= pf.label :job_title, "Job Title" %>
+                    <%= pf.text_field :job_title %>
+                  </div>
+
+                  <div class="display-inline">
+                    <%= pf.label :mobile, "Mobile" %>
+                    <%= pf.text_field :mobile %>
+                  </div>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h4>Work Address</h4>
+            </td>
+            <td>
+              <%= f.fields_for :profile do |pf| %>
+                  <%= pf.fields_for :company do |cf| %>
+                      <%= cf.fields_for :address do |af| %>
+                          <div class="display-single">
+                            <%= af.label :line1, "Address" %>
+                            <%= af.text_field :line1 %>
+                          </div>
+
+                          <div class="display-single">
+                            <%= af.label :line2, "Address Cont." %>
+                            <%= af.text_field :line2 %>
+                          </div>
+
+                          <div class="display-inline">
+                            <%= af.label :city, "City" %>
+                            <%= af.text_field :city %>
+                          </div>
+
+                          <div class="display-inline">
+                            <%= af.label :zip, "Postal/Zip Code" %>
+                            <%= af.text_field :zip %>
+                          </div>
+
+                          <div class="display-inline">
+                            <%= af.label :country, "Country" %>
+                            <%= af.text_field :country %>
+                          </div>
+
+                          <div class="display-inline">
+                            <%= af.label :state, "State" %>
+                            <%= af.text_field :state %>
+                          </div>
+                      <% end %>
+                  <% end %>
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <div class="control-group text-center">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+    </div>
+<% end %>

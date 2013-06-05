@@ -1,0 +1,8 @@
+<h5>Design</h5>
+<div class="admin-design">
+  <%= semantic_form_for @company, :html => {:multipart => true} do |f| %>
+      Logo: <%= image_tag @company.logo.url(:thumb) %>  <%= f.file_field :logo %>
+      <%= hidden_field_tag :request_form, '#tab6' %>
+      <%= f.submit 'change logo', :class => 'btn btn-small btn-info' %>
+  <% end %>
+</div>

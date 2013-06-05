@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="row">
+
+    <div class="span6">
+
+      <div class="register-info-wraper">
+        <div id="register-info">
+
+          <h1>You are about 30 seconds away from simplifying your activities.</h1>
+
+          <ul dir="rtl">
+            <li>Faster</li>
+            <li>Simpler</li>
+            <li>Easier</li>
+            <li>Convenient</li>
+          </ul>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="span6">
+      <div id="register-wraper">
+        <%= semantic_form_for @user, :html => {multipart: true, :id => "register-form"} do |f| %>
+            <legend>Register to <span class="blue">Woflow</span></legend>
+
+            <div class="body">
+              <%= f.inputs do %>
+                  <%= f.fields_for :profile do |pf| %>
+                      <%= pf.fields_for :company do |cf| %>
+                          <%= cf.label :title, "Company Name" %>
+                          <%= cf.text_field :title, :class => "input-huge" %>
+                      <% end %>
+                  <% end %>
+
+                  <%= f.fields_for :profile do |pf| %>
+                      <div class="control-group control-inline">
+                        <%= pf.label :first_name, "First Name" %>
+                        <%= pf.text_field :first_name, :class => "input-medium" %>
+                      </div>
+
+                      <div class="control-group control-inline">
+                        <%= pf.label :last_name, "Last Name" %>
+                        <%= pf.text_field :last_name, :class => "input-medium" %>
+                      </div>
+                  <% end %>
+
+                  <%= f.label :user_name, "Username" %>
+                  <%= f.text_field :user_name, :class => "input-huge" %>
+
+                  <%= f.label :email, "E-mail" %>
+                  <%= f.text_field :email, :class => "input-huge" %>
+
+                  <%= f.label :password %>
+                  <%= f.password_field :password, :class => "input-huge" %>
+
+                  <%= f.label :password_confirmation, "Confirm Password" %>
+                  <%= f.password_field :password_confirmation, :class => "input-huge" %>
+
+                  <%= f.fields_for :user_roles do |urf| %>
+                      <% Role.all.each do |role| %>
+                          <% if role.name.include?("admin") %>
+                              <%= urf.hidden_field :role_id, value: role.id %>
+                          <% end %>
+                      <% end %>
+
+                  <% end %>
+              <% end %>
+            </div>
+
+            <div class="footer">
+              <!-- <label class="checkbox inline">
+                   <input type="checkbox" id="inlineCheckbox1" value="option1"> I agree to something I will never read
+               </label> -->
+              <button type="submit" class="btn btn-success">Register</button>
+            </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="white navbar-fixed-bottom">
+  Already have an account? <%= link_to "Sign In", login_users_path, :class => "btn btn-black" %>
+</footer>

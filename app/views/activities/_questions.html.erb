@@ -1,0 +1,53 @@
+<h4>Questions</h4>
+
+<div class="accordion" id="accordion2">
+  <% Topic.all.each_with_index do |topic, index| %>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<%= index %>">
+            <%= topic.title %>
+          </a>
+        </div>
+        <div id="collapse<%= index %>" class="accordion-body collapse">
+          <div class="accordion-inner">
+            <ul class="unstyled inline">
+              <li style="width: 260px; padding: 10px; font-weight: bold;"># Question</li>
+              <li style=" padding: 10px; font-weight: bold;">Yes</li>
+              <li style=" padding: 10px; font-weight: bold;">No</li>
+              <li style=" padding: 10px; font-weight: bold;">N/A</li>
+              <li style="width: 70px; padding: 10px; font-weight: bold;">Comments</li>
+              <br>
+              <% if @activity.answer_details.by_topic_id(topic.id).size == 0 %>
+                  <% answer_detail = @activity.answer_details.build %>
+                  <% topic.questions.each_with_index do |question, index| %>
+                      <li style="width: 260px; padding: 10px;"><%= "#{index + 1}  #{question.title}" %></li>
+                      <%= f.fields_for :answer_details, answer_detail do |pf| %>
+                          <li style=" padding: 10px;"><%= pf.radio_button :answer, 'yes', checked: true %></li>
+                          <li style=" padding: 10px;"><%= pf.radio_button :answer, 'no' %></li>
+                          <li style=" padding: 10px;"><%= pf.radio_button :answer, 'na' %></li>
+                          <li style="width: 70px; padding: 10px;"><%= pf.text_field :comment %></li>
+                          <%= pf.hidden_field :question_id, :value => question.id %>
+                          <%= pf.hidden_field :topic_id, :value => question.topic_id %>
+                          <br>
+                      <% end %>
+                  <% end %>
+              <% else %>
+                  <% @activity.answer_details.by_topic_id(topic.id).each.with_index do |answer_detail, index| %>
+                      <li style="width: 260px;"><%= "#{index + 1}  #{answer_detail.question.title}" %></li>
+                      <%= f.fields_for :answer_details, answer_detail do |pf| %>
+                          <li style=" padding: 10px;"><%= pf.radio_button :answer, 'yes' %></li>
+                          <li style=" padding: 10px;"><%= pf.radio_button :answer, 'no' %></li>
+                          <li style=" padding: 10px;"><%= pf.radio_button :answer, 'na' %></li>
+                          <li style="width: 70px; padding: 10px;"><%= pf.text_field :comment %></li>
+                          <%= pf.hidden_field :question_id %>
+                          <%= pf.hidden_field :topic_id %>
+                          <br>
+                      <% end %>
+                  <% end %>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>

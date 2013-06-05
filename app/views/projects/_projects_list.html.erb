@@ -1,0 +1,36 @@
+<h4>
+  <%= link_to "Projects", dashboard_admins_path %> >>
+  <a href="<%= project_path(@project) %>" data-toggle="modal" data-target="#myModal"><%= @project.title %></a>
+</h4>
+<%= semantic_form_for @project, :html => {multipart: true} do |f| %>
+    <table class="table table-striped">
+      <tbody>
+      <%= f.inputs do %>
+          <tr>
+            <td>
+              <h4>Project Details</h4>
+            </td>
+            <td>
+              <div class="display-single">
+                <%= f.label :title, "Name" %>
+                <%= f.text_field :title %>
+              </div>
+
+              <div class="display-single">
+                <%= f.label :code, "Project ID" %>
+                <%= f.text_field :code %>
+              </div>
+
+              <div class="display-single">
+                <%= f.label :description, "Description" %>
+                <%= f.text_field :description %>
+              </div>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <div class="control-group text-center">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+    </div>
+<% end %>

@@ -1,0 +1,33 @@
+<div class="container">
+
+  <div id="login-wraper">
+    <%= bootstrap_flash %>
+    <%= semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => "login-form"}) do |f| %>
+        <legend>Sign in to <span class="blue">Woflo</span></legend>
+        <div class="body">
+          <%= f.inputs do %>
+              <%= f.label :email %>
+              <%= f.email_field :email %>
+
+              <%= f.label :password %>
+              <%= f.password_field :password %>
+              </div>
+
+              <div class="footer">
+                <label class="checkbox inline">
+                  <% if devise_mapping.rememberable? -%>
+                      <%= f.check_box :remember_me %> Remember me
+                  <% end %>
+                </label>
+          <% end %>
+          <button type="submit" class="btn btn-success">Login</button>
+          </div>
+
+    <% end %>
+  </div>
+
+</div>
+
+<footer class="white navbar-fixed-bottom">
+  Don't have an account yet? <%= link_to "Register", registration_users_path, :class => "btn btn-black" %>
+</footer>

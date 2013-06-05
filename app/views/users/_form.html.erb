@@ -1,0 +1,60 @@
+<%= semantic_form_for @user, :html => {multipart: true} do |f| %>
+    <div class="modal-body">
+      <%= f.inputs do %>
+
+          <p>
+            <%= f.label :email, "*Email" %>
+            <%= f.text_field :email %>
+          </p>
+
+          <%= f.fields_for :profile do |pf| %>
+              <p>
+                <%= pf.label :first_name, "First Name" %>
+                <%= pf.text_field :first_name %>
+              </p>
+
+              <p>
+                <%= pf.label :last_name, "Last Name" %>
+                <%= pf.text_field :last_name %>
+              </p>
+              <%= pf.hidden_field :company_id, value: current_company.id rescue nil %>
+          <% end %>
+
+          <%= f.hidden_field :password, :value => '123456' %>
+          <%= f.hidden_field :password_confirmation, :value => '123456' %>
+          <%= f.hidden_field :admin_checked %>
+          <p>
+            <%= f.fields_for :user_roles do |urf| %>
+                <% Role.all.each do |role| %>
+                    <% if role.name.include?("admin") %>
+                        <%= urf.label :role_id, role.name.humanize %>
+                        <%= check_box_tag "user[user_roles_attributes][0][role_id]", role.id, @user.user_roles.include?(role.id) %>
+                    <% end %>
+                <% end %>
+            <% end %>
+          </p>
+      <% end %>
+    </div>
+    <div class="modal-footer">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<% end %>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#user_user_roles_attributes_0_role_id').mousedown(function () {
+            if (!$(this).is(':checked')) {
+                this.checked = confirm("Are you sure?");
+                $(this).trigger("change");
+                if ($(this).is(':checked')) {
+                    $('#user_admin_checked').val(true);
+                }
+            }
+            else {
+                $('#user_admin_checked').val(false);
+            }
+        });
+    });
+</script>

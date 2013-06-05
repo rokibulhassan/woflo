@@ -1,0 +1,22 @@
+<h1>Editing topic</h1>
+
+<%= semantic_form_for @topic, :html => {multipart: true} do |f| %>
+    <%= f.inputs do %>
+        <p>
+          <%= f.label :title, "Topic" %>
+          <%= f.text_field :title %>
+        </p>
+
+        <%= f.fields_for :questions do |qf| %>
+            <p>
+              <%= qf.label :title, "Question" %>
+              <%= qf.text_field :title %>
+            </p>
+        <% end %>
+
+    <% end %>
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+<% end %>
+
+<%= link_to 'Show', @topic %> |
+<%= link_to 'Back', topics_path %>

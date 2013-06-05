@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel"><%= @project.try(:title) %></h3>
+</div>
+<div class="modal-body">
+  <h5>Project Details</h5>
+  <dl class="dl-horizontal">
+    <dt>Team Name</dt>
+    <dd><%= @project.try(:title) %></dd>
+    <dt>Project ID</dt>
+    <dd><%= @project.try(:code) %></dd>
+    <dt>Description</dt>
+    <dd><%= @project.try(:description) %></dd>
+  </dl>
+</div>
+<div class="modal-footer">
+  <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+</div>
+
+

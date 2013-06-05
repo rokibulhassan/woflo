@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Woflo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <%= csrf_meta_tag %>
+  <%= stylesheet_link_tag :application %>
+  <%= javascript_include_tag :application %>
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="#">
+        <%= image_tag current_company.logo.url(:logo) %>
+        <span id='app_name'>
+      <span id="first"><%= current_company.try(:title) %></span>
+      </span>
+      </a>
+
+      <div class="nav-collapse collapse">
+        <p class="navbar-text pull-right">
+          <% if can? :manage, :admin %>
+              <%= link_to dashboard_admins_path, :style => "margin-left:30px;" do %>
+                  <i class="icon-cog icon-white"></i>
+              <% end %>
+          <% end %>
+        </p>
+        <ul class="nav nav-tabs">
+          <!--<li><%#= link_to "test Qus", new_topic_path %></li>-->
+          <li><%= link_to "Dashboard", dashboard_projects_path %></li>
+          <li><%= link_to "Mangement", "#" %></li>
+          <li><%= link_to "Activities", parent_activities_path %></li>
+          <li>
+            <a href="<%= new_activity_path %>" data-toggle="modal" data-target="#myModal" class="btn btn-mini">Create
+              Activity</a>
+          </li>
+
+          <form class="navbar-form pull-left" style="margin: 0px 15px 0px 190px; ">
+            <input type="text" class="span2" placeholder="Search">
+          </form>
+          <% if current_user.present? %>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <%= current_user.user_name %>
+                  <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to 'My Profile', edit_user_path(current_user) %></li>
+                  <li><%= link_to "Help & Support", "#" %></li>
+                  <li><%= link_to 'Logout', destroy_user_session_path, :method => :delete %></li>
+                </ul>
+              </li>
+          <% end %>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <%= bootstrap_flash %>
+    <%= yield %>
+  </div>
+  <hr/>
+
+  <div class="modal fade" id="myModal"></div>
+</div>
+
+<footer>
+  <div id="footer">
+    <div class="container text-center">
+      <h5 class="muted credit">Powered By Woflo</h5>
+      <a href="#supportModal" role="button" class="btn btn-small" data-toggle="modal">Support</a>
+    </div>
+  </div>
+</footer>
+
+<%= yield :scripts %>
+</body>
+</html>
+
+<%= render :partial => 'layouts/support' %>

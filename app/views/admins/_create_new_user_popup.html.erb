@@ -1,0 +1,11 @@
+<div id="newuser_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Create User</h3>
+  </div>
+  <% @user = User.new
+     @user.user_roles.build
+     profile = @user.build_profile
+     profile.build_company %>
+  <%= render :partial => 'users/form' %>
+</div>

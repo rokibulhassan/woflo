@@ -1,0 +1,44 @@
+<a href="#newuser_modal" role="button" class="btn btn-small create-user-btn" data-toggle="modal">Create User</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Full Name</th>
+    <th>Login Details</th>
+    <th>Teams</th>
+    <th>Activities</th>
+    <th>Administrator</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |user| %>
+      <tr>
+        <td><%= user.full_name %></td>
+        <td>
+          Count: <%= user.sign_in_count %>
+          <br>
+          Last: <%= user.last_sign_in_at.to_date rescue "Never" %>
+        </td>
+        <td>
+          <% user.teams.each do |team| %>
+              <%= team.try(:title) %> <br>
+          <% end %>
+        </td>
+        <td>
+          <% current_company.parent_activities.each do |parent_activity| %>
+              <%= parent_activity.try(:title) %> <br>
+          <% end %>
+        </td>
+        <td>
+          <%= user.admin? ? "Yes" : "No" %>
+        </td>
+        <td>
+          <%= link_to "Edit", edit_user_path(user), :class => "btn btn-small" %>
+          <%= link_to "Delete", user_path(user), :method => :delete, :confirm => 'Are you sure?', :class => "btn btn-small" %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= render :partial => "admins/create_new_user_popup" %>
+

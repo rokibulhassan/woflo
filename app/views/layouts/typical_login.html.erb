@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Login page - Woflow</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Woflow - custom activity management.">
+  <meta name="author" content="Solutions Foundry LLC - Woflow">
+
+  <%= csrf_meta_tag %>
+  <%= stylesheet_link_tag :application %>
+  <%= javascript_include_tag :application %>
+
+  <link rel="shortcut icon" href="favicon.ico">
+
+</head>
+
+<body class="typical-login-body">
+
+<div class="navbar navbar-fixed-top typical-login-navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="<%= login_users_path %>"><%= image_tag "logo.png", :alt => "Woflow" %></a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <%= yield %>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<%= semantic_form_for @activity, :html => {multipart: true} do |f| %>
+    <div class="modal-body">
+      <%= f.inputs do %>
+
+          <p>
+            <%= f.label :parent_activity_id, "*Activity" %>
+            <%= f.select(:parent_activity_id, ParentActivity.active.collect { |acr| [acr.title, acr.id] }, :prompt => 'Select') %>
+          </p>
+
+          <p>
+            <%= f.label :inspected_by, "*Inspected By" %>
+            <%= f.select(:inspected_by, User.all.collect { |u| [u.full_name, u.id] }, :prompt => 'Select') %>
+          </p>
+
+          <div id="datetimepicker1" class="input-append date">
+            <p>
+              <%= f.label :inspection_date %>
+              <%= f.text_field :inspection_date, :'data-format' => 'dd/MM/yyyy hh:mm:ss' %>
+              <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
+            </p>
+          </div>
+
+
+          <p>
+            <%= f.label :project_title, "*Project Name" %>
+            <%= f.text_field :project_title %>
+          </p>
+
+          <p>
+            <%= f.label :project_code, "*Project Id" %>
+            <%= f.text_field :project_code %>
+          </p>
+
+          <p>
+            <%= f.label :building_title, "Building" %>
+            <%= f.text_field :building_title %>
+          </p>
+
+          <p>
+            <%= f.label :floor_title, "Floor" %>
+            <%= f.text_field :floor_title %>
+          </p>
+
+          <p>
+            <%= f.label :room_title, "Room" %>
+            <%= f.text_field :room_title %>
+          </p>
+
+
+          <p>
+            <%= f.label :project_manager, "Project Manager" %>
+            <%= f.select(:project_manager, User.all.collect { |u| [u.full_name, u.id] }, :prompt => 'Select') %>
+          </p>
+
+
+          <%= f.hidden_field :created_by, value: current_user.id rescue nil %>
+          <%= f.hidden_field :company_id, value: current_company.id rescue nil %>
+      <% end %>
+    </div>
+    <div class="modal-footer">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+<% end %>
+
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            language: 'pt-BR'
+        });
+    });
+</script>
+

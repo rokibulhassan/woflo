@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel"><%= @team.try(:title) %>'s Profile</h3>
+</div>
+<div class="modal-body">
+  <h5>Basic Details</h5>
+  <dl class="dl-horizontal">
+    <dt>Team Name</dt>
+    <dd><%= @team.try(:title) %></dd>
+    <dt>Description</dt>
+    <dd><%= @team.try(:description) %></dd>
+  </dl>
+
+  <h5>Team Members</h5>
+  <dl class="dl-horizontal">
+    <% @team.team_members.each do |team_member| %>
+        <dt>Team Member</dt>
+        <dd><%= team_member.try(:user).try(:full_name) %></dd>
+        <dt>Role Type</dt>
+        <dd><%= team_member.try(:role_type).humanize %></dd>
+    <% end %>
+  </dl>
+
+</div>
+<div class="modal-footer">
+  <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+</div>
+
+

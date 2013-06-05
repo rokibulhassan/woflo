@@ -1,0 +1,28 @@
+<a href="<%= new_project_path %>" data-toggle="modal" data-target="#myModal" class="btn btn-small create-team-btn">Create
+  Project</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Project Name</th>
+    <th>Project ID</th>
+    <th>Project Description</th>
+    <th>Date/Time Added/Added By</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.title %></td>
+        <td> <%= project.try(:code) %></td>
+        <td><%= project.try(:description) %></td>
+        <td><%= project.created_at.strftime("%m/%d/%Y %I:%M %p") %>
+          /<%= project.creator %></td>
+        <td>
+          <%= link_to "Edit", edit_project_path(project), :class => "btn btn-small" %>
+          <%= link_to "Delete", project_path(project), :method => :delete, :confirm => 'Are you sure?', :class => "btn btn-small" %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

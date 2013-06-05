@@ -1,0 +1,70 @@
+<h5>Account Overview</h5>
+
+<div class="comapay-account">
+  <div class="general-info" style="margin-left: -70px;">
+    <dl class="dl-horizontal">
+      <dt>Name:</dt>
+      <dd><%= @company.title %></dd>
+      <dt>UID</dt>
+      <dd><%= current_user.id %></dd>
+      <dt>URL</dt>
+      <dd><%= "https://name.appname.com" %></dd>
+    </dl>
+  </div>
+  <div class="general-info">
+    <dl class="dl-horizontal">
+      <dt>Member since:</dt>
+      <dd><%= @company.created_at %></dd>
+      <dt>Account status</dt>
+      <dd><%= "Active" %></dd>
+      <dt>Number of Project</dt>
+      <dd><%= @company.activities.size %></dd>
+      <dt>Number of Teams</dt>
+      <dd><%= @company.teams.size %></dd>
+      <dt>Number of Users</dt>
+      <dd><%= @company.users.size %></dd>
+    </dl>
+  </div>
+  <div class="general-info">
+    <dl class="dl-horizontal">
+      <dt>Activities</dt>
+      <% @company.parent_activities.each do |parent_activity| %>
+          <dd><%= parent_activity.title %></dd>
+      <% end %>
+    </dl>
+  </div>
+</div>
+
+<h5>Account Overview</h5>
+<div class="admin-access">
+  <ul class="unstyled inline">
+    <li class="element">NAME</li>
+    <li class="element">EMAIL</li>
+    <li class="element">SUPER ADMIN ACCESS</li>
+    <br>
+
+    <% current_company.users.each do |user| %>
+        <% if user.admin? %>
+            <li class="element"><%= current_user.profile.full_name %></li>
+            <li class="element"><%= current_user.email %></li>
+            <li class="element">
+              <div class="btn-group">
+                <a href="#" data-toggle="change-statys" class="btn btn-info btn-small <%= "disabled" if current_user.admin? %>">
+                  Yes </a>
+                <a href="#" data-toggle="change-statys" class="btn btn-danger btn-small <%= "disabled" if !current_user.admin? %>">
+                  No </a>
+              </div>
+            </li>
+        <% end %>
+    <% end %>
+  </ul>
+</div>
+
+<h5>Design</h5>
+<div class="admin-design">
+  <%= semantic_form_for @company, :html => {:multipart => true} do |f| %>
+      Logo: <%= image_tag @company.logo.url(:thumb) %>  <%= f.file_field :logo %>
+      <%= hidden_field_tag :request_form, '#tab5' %>
+      <%= f.submit 'change logo', :class => 'btn btn-small btn-info' %>
+  <% end %>
+</div>

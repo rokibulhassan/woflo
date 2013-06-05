@@ -1,0 +1,33 @@
+<a href="#" class="btn btn-small create-team-btn">Request Activity</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Activity Name</th>
+    <th>Activity ID</th>
+    <th>Activity Description</th>
+    <th>Date/Time Added/Added By</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <% @parent_activities.each do |parent_activity| %>
+      <tr>
+        <td><%= parent_activity.title %></td>
+        <td> <%= parent_activity.try(:code) %></td>
+        <td><%= parent_activity.try(:description) %></td>
+        <td><%= parent_activity.created_at.strftime("%m/%d/%Y %I:%M %p") %>
+          /<%= parent_activity.creator %></td>
+        <td>
+          <%#= link_to "Edit", edit_parent_activity_path(parent_activity), :class => "btn btn-small" %>
+          <%#= link_to "Delete", parent_activity_path(parent_activity), :method => :delete, :confirm => 'Are you sure?', :class => "btn btn-small" %>
+          <div class="btn-group">
+            <a href="<%= update_status_parent_activity_path(parent_activity, status: true) %>" data-toggle="change-statys" class="btn btn-info btn-small <%= "disabled" if parent_activity.enable? %>" data-target="#tab4">
+              Enable </a>
+            <a href="<%= update_status_parent_activity_path(parent_activity, status: false) %>" data-toggle="change-statys" class="btn btn-danger btn-small <%= "disabled" if !parent_activity.enable? %>" data-target="#tab4">
+              Disable </a>
+          </div>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,28 @@
+<a href="<%= new_activity_request_path %>" data-toggle="modal" data-target="#myModal" class="btn btn-small create-team-btn">Request
+  Activity</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Activity Name</th>
+    <th>Activity ID</th>
+    <th>Activity Description</th>
+    <th>Date/Time Added/Added By</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <% @activity_requests.each do |activity_request| %>
+      <tr>
+        <td><%= activity_request.title %></td>
+        <td> <%= activity_request.try(:code) %></td>
+        <td><%= activity_request.try(:description) %></td>
+        <td><%= activity_request.created_at.strftime("%m/%d/%Y %I:%M %p") %>
+          /<%= activity_request.creator %></td>
+        <td>
+          <%= link_to "Edit", edit_activity_request_path(activity_request), :class => "btn btn-small" %>
+          <%= link_to "Delete", activity_request_path(activity_request), :method => :delete, :confirm => 'Are you sure?', :class => "btn btn-small" %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

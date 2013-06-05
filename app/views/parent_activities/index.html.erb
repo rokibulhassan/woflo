@@ -1,0 +1,22 @@
+<div class="activity-content">
+  <div class="activity parent-activity">
+    <ul class="nav">
+      <% @parent_activities.each do |parent_activity| %>
+          <li>
+            <a href="<%= fetch_activities_activity_path(parent_activity) %>" data-toggle="tab" data-target="#tab1"><%= parent_activity.title.upcase %></a>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="activity child-activity">
+    <div id="tab1">
+
+    </div>
+  </div>
+
+  <div class="activity activities-edit">
+    <div id="tab2">
+
+    </div>
+  </div>
+</div>
